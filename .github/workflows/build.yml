@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  pull_request:
 
 jobs:
   plugin_test:
@@ -14,12 +15,7 @@ jobs:
           - ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
-      - name: asdf_setup
-        uses: asdf-vm/actions/setup@v2
       - name: asdf_plugin_test
-        run: |
-          asdf plugin add texlive https://github.com/javiergarea/asdf-texlive.git
-          asdf list-all texlive
-          asdf install texlive latest
-          asdf global texlive latest
-          tex --version || fail "Installation failed"
+        uses: asdf-vm/actions/plugin-test@v2
+        with:
+          command: tex --version
