@@ -36,21 +36,21 @@ download_release() {
 	version="$1"
 	filename="$2"
 
-    case "$(uname -m)" in
-        x86_64)
-            libc="linux" # default to linux
-            if ldd --version 2>&1 | grep -q musl; then
-                libc="musl"
-            fi
-            arch="x86_64-${libc}"
-            ;;
-        i686)
-            arch="i386-linux"
-            ;;
-        *)
-            fail "Unsupported architecture: $(uname -m)"
-            ;;
-    esac
+	case "$(uname -m)" in
+	x86_64)
+		libc="linux" # default to linux
+		if ldd --version 2>&1 | grep -q musl; then
+			libc="musl"
+		fi
+		arch="x86_64-${libc}"
+		;;
+	i686)
+		arch="i386-linux"
+		;;
+	*)
+		fail "Unsupported architecture: $(uname -m)"
+		;;
+	esac
 
 	url="$GH_REPO/releases/download/${version}/texlive-bin-${arch}.tar.gz"
 
