@@ -38,9 +38,9 @@ download_release() {
 
 	case "$(uname -m)" in
 	x86_64)
-		libc="linux" # default to linux
+		libc="" # default to linux
 		if ldd --version 2>&1 | grep -q musl; then
-			libc="musl"
+			libc="linuxmusl"
 		fi
 		arch="x86_64-${libc}"
 		;;
